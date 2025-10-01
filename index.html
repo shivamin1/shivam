@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shivam Amin - IT Support & Data Quality Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Define a light background with dark primary text */
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* Pure White background */
+            color: #1e293b; /* Slate-800 for body text */
+        }
+        /* Custom scrollbar matching the accent color */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: #0d9488; /* Teal-600 */
+            border-radius: 4px;
+        }
+
+        /* Class for the sophisticated card look with hover glow (adjusted for light mode) */
+        .tech-card {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid #e2e8f0; /* Slate-200 border */
+            background: #f8fafc; /* Slate-50 background */
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Lighter shadow for light mode */
+        }
+
+        .tech-card:hover {
+            transform: translateY(-8px);
+            border-color: #0d9488; /* Teal-600 on hover */
+            box-shadow: 0 15px 30px rgba(13, 148, 136, 0.15); /* Teal glow effect for light mode */
+        }
+
+        /* New button style for modern look */
+        /* Primary button: Dark Blue */
+        .btn-primary {
+            @apply bg-blue-800 text-white font-bold py-3 px-8 rounded-xl hover:bg-blue-700 transition duration-300 transform hover:scale-[1.02] shadow-xl shadow-blue-800/30 flex items-center justify-center;
+        }
+        /* Secondary button: Teal */
+        .btn-secondary {
+            @apply bg-teal-600 text-white font-bold py-3 px-8 rounded-xl border border-teal-600 hover:bg-teal-500 transition duration-300 transform hover:scale-[1.02] shadow-lg flex items-center justify-center;
+        }
+
+        /* Skill badge enhancement */
+        .skill-badge {
+            @apply inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-teal-600/10 text-teal-800 transition duration-200 hover:bg-teal-600/30 hover:text-slate-900 transform hover:scale-105;
+        }
+        .nav-link {
+            @apply text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-800 px-3 py-2 rounded-lg transition duration-300;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-lg shadow-slate-200 border-b border-blue-800/20">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="flex items-center space-x-3">
+                        <!-- Profile Picture (Replace the src URL with your actual image) -->
+                        <img src="https://placehold.co/48x48/f8fafc/1e293b?text=SA" alt="Shivam Amin Profile" class="w-12 h-12 rounded-full border-2 border-blue-800 ring-2 ring-teal-600 object-cover">
+                        <span class="text-xl font-extrabold text-blue-800 tracking-wider hidden sm:inline">Shivam Amin</span>
+                    </a>
+                </div>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <a href="#about" class="nav-link">About</a>
+                        <a href="#experience" class="nav-link">Experience</a>
+                        <a href="#skills" class="nav-link">Skills</a>
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Hero Section -->
+        <section id="home" class="py-24 md:py-32 flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div class="max-w-5xl">
+                <p class="text-xl font-semibold text-teal-600 mb-4 tracking-widest uppercase">IT Support & Data Integrity Specialist</p>
+                <h1 class="text-6xl sm:text-8xl font-extrabold tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-teal-600">
+                    <span class="block">Shivam Amin</span>
+                </h1>
+                <p class="mt-3 text-2xl text-slate-700 mx-auto max-w-3xl">
+                    A detail-oriented professional blending expertise in **front-line technical support** and mission-critical **data quality assurance** within public health and enterprise compliance platforms.
+                </p>
+                <div class="mt-12 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#experience" class="btn-primary">
+                        <i data-lucide="shield-check" class="w-5 h-5 mr-3"></i> View Expertise
+                    </a>
+                    <a href="#contact" class="btn-secondary">
+                        <i data-lucide="send" class="w-5 h-5 mr-3"></i> Connect
+                    </a>
+                </div>
+            </div>
+            <!-- Removed subtle tech background element as it works poorly on light mode -->
+        </section>
+        
+        <!-- Separator -->
+        <hr class="my-16 border-slate-300">
+
+        <!-- About Section (Expanded) -->
+        <section id="about" class="py-16">
+            <h2 class="text-4xl font-bold text-center mb-12 text-blue-800">About My Approach</h2>
+            <div class="max-w-3xl mx-auto text-center space-y-6 text-xl text-slate-700">
+                <p>
+                    My career is built on a dual foundation: **ensuring system uptime for users** and **maintaining the integrity of the data itself**. Whether it’s troubleshooting complex login issues for healthcare professionals or executing rigorous data quality audits, I focus on the root cause to deliver long-term stability.
+                </p>
+                <p>
+                    I excel in high-compliance environments, particularly those governed by **HIPA and strict data privacy protocols**. My experience spans enterprise compliance (Avetta) and public sector health (eHealth), proving my adaptability and unwavering commitment to secure and reliable operations.
+                </p>
+            </div>
+        </section>
+
+        <!-- Separator -->
+        <hr class="my-16 border-slate-300">
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-16">
+            <h2 class="text-4xl font-bold text-center mb-12 text-blue-800">Professional Experience</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+                
+                <!-- Role 1: Customer Service Representative - Registries -->
+                <div class="tech-card p-6 rounded-xl">
+                    <h3 class="text-2xl font-semibold text-blue-800">Customer Service Representative - Registries</h3>
+                    <p class="text-lg text-slate-600">eHealth Saskatchewan, Regina, SK | Feb 2025 - Present</p>
+                    <ul class="list-disc list-outside ml-5 mt-4 text-slate-700 space-y-2">
+                        <li>Serve as **Tier 1 technical support** for healthcare professionals, resolving issues related to access, configuration, and navigation of digital health systems (PHRS, Vital Statistics).</li>
+                        <li>Utilize internal ticketing systems for accurate logging, initial troubleshooting, and **timely escalation** of complex IT problems.</li>
+                        <li>Provide end-user education and guidance, upholding strict **HIPA and data privacy compliance** standards in all interactions.</li>
+                    </ul>
+                </div>
+                
+                <!-- Role 2: Data Quality Administrator (NEW) -->
+                <div class="tech-card p-6 rounded-xl">
+                    <h3 class="text-2xl font-semibold text-blue-800">Data Quality Administrator</h3>
+                    <p class="text-lg text-slate-600">eHealth Registries, Regina, SK | April 2025 – September 2025</p>
+                    <ul class="list-disc list-outside ml-5 mt-4 text-slate-700 space-y-2">
+                        <li>Executed comprehensive **data quality audits** on provincial health registry data to ensure high standards of accuracy, completeness, and consistency.</li>
+                        <li>Investigated and **resolved data discrepancies** and errors flagged by system reports, directly improving database reliability.</li>
+                        <li>Developed and implemented **data cleansing procedures** in collaboration with IT to enhance source data collection and validation processes.</li>
+                    </ul>
+                </div>
+
+                <!-- Role 3: Supplier Success Professional -->
+                <div class="tech-card p-6 rounded-xl md:col-span-2">
+                    <h3 class="text-2xl font-semibold text-blue-800">Supplier Success Professional</h3>
+                    <p class="text-lg text-slate-600">Avetta LLC, Calgary, AB (Hybrid) | Oct 2021 – Apr 2023</p>
+                    <ul class="list-disc list-outside ml-5 mt-4 text-slate-700 space-y-2">
+                        <li>Delivered front-line support for a cloud-based compliance platform, troubleshooting issues including **portal access, file uploads, and browser compatibility**.</li>
+                        <li>Managed high-volume support cases using **Salesforce Service Cloud**, consistently achieving high resolution efficiency within defined SLA targets.</li>
+                        <li>Contributed to knowledge base development and collaborated with Product teams on bug reporting and QA for platform updates.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Separator -->
+        <hr class="my-16 border-slate-300">
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-16">
+            <h2 class="text-4xl font-bold text-center mb-12 text-blue-800">Technical Skills & Competencies</h2>
+            
+            <div class="max-w-4xl mx-auto space-y-8">
+                
+                <!-- Skill Category 1: Tools & Platforms -->
+                <div class="skill-category tech-card p-6 rounded-xl">
+                    <h4 class="font-bold text-xl text-blue-800 mb-4 flex items-center">
+                        <i data-lucide="tool" class="w-6 h-6 mr-3 text-teal-600"></i> Support Systems & Tools
+                    </h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge">Salesforce (Service Cloud)</span>
+                        <span class="skill-badge">Ticketing Systems (Jira/ServiceNow concept)</span>
+                        <span class="skill-badge">PHRS / Vital Statistics Systems</span>
+                        <span class="skill-badge">Remote Desktop Tools</span>
+                        <span class="skill-badge">Microsoft 365 / Office</span>
+                    </div>
+                </div>
+
+                <!-- Skill Category 2: Data & Compliance -->
+                <div class="skill-category tech-card p-6 rounded-xl">
+                    <h4 class="font-bold text-xl text-blue-800 mb-4 flex items-center">
+                        <i data-lucide="database" class="w-6 h-6 mr-3 text-teal-600"></i> Data Integrity & Compliance
+                    </h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge">Data Quality Auditing</span>
+                        <span class="skill-badge">Data Cleansing Procedures</span>
+                        <span class="skill-badge">HIPA & Data Privacy Protocols</span>
+                        <span class="skill-badge">System Documentation</span>
+                        <span class="skill-badge">Problem Identification & RCA</span>
+                    </div>
+                </div>
+
+                <!-- Skill Category 3: OS & Networking -->
+                <div class="skill-category tech-card p-6 rounded-xl">
+                    <h4 class="font-bold text-xl text-blue-800 mb-4 flex items-center">
+                        <i data-lucide="monitor" class="w-6 h-6 mr-3 text-teal-600"></i> Operating Systems & Hardware
+                    </h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge">Windows 10/11 Troubleshooting</span>
+                        <span class="skill-badge">PC Setup/Hardware</span>
+                        <span class="skill-badge">LAN/WAN/TCP/IP Basics</span>
+                        <span class="skill-badge">iOS & Android Basics</span>
+                        <span class="skill-badge">Active Directory Familiarity</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <p class="text-xl text-slate-700">
+                    <i data-lucide="graduation-cap" class="w-5 h-5 mr-2 inline text-teal-600"></i>
+                    Education: <span class="font-semibold text-blue-800">Diploma in Computer Science</span> - University of Regina (Jan 2019-Dec 2020)
+                </p>
+            </div>
+        </section>
+
+        <!-- Separator -->
+        <hr class="my-16 border-slate-300">
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 text-center">
+            <h2 class="text-4xl font-bold mb-8 text-blue-800">Ready for a Secure and Reliable Future?</h2>
+            <p class="text-xl text-slate-700 max-w-2xl mx-auto mb-10">
+                Let's discuss how my blend of technical support and data integrity expertise can drive efficiency and security for your organization.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a href="mailto:shivam2001amin@gmail.com" class="btn-primary py-4 px-10">
+                    <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Email Me Directly
+                </a>
+                <span class="text-xl text-slate-900 flex items-center">
+                    <i data-lucide="phone" class="w-5 h-5 mr-3 text-teal-600"></i> (639) 560-0583
+                </span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-100 border-t border-blue-800/20 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-600">
+            <p>&copy; 2025 Shivam Amin. Built for professional impact.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Simple smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
