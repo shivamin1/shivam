@@ -149,12 +149,63 @@
       </div>
     </section>
 
-    <!-- (rest of your sections: About, Experience, Skills, Contact) -->
-    <!-- Keep other page sections intact — the code above only adds HC + reporting behavior and UI controls. -->
+    <hr class="my-10 border-slate-200">
 
+    <!-- About -->
+    <section id="about" class="py-8" aria-labelledby="aboutHeading">
+      <h2 id="aboutHeading" class="text-2xl font-bold text-center mb-6 reveal">About My Approach</h2>
+      <div class="max-w-3xl mx-auto text-center text-base text-slate-700 reveal">
+        <p class="mb-3">I combine frontline troubleshooting with rigorous data quality processes. I focus on fixing the root cause so issues stay fixed — not just patched.</p>
+        <p>Experienced in high-compliance environments and practical user communication: clear, calm, and documented.</p>
+      </div>
+    </section>
+
+    <hr class="my-10 border-slate-200">
+
+    <!-- Experience -->
+    <section id="experience" class="py-8" aria-labelledby="expHeading">
+      <h2 id="expHeading" class="text-2xl font-bold text-center mb-6 reveal">Professional Experience</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <article class="card p-6 reveal" tabindex="0" aria-labelledby="exp1">
+          <h3 id="exp1" class="text-xl font-semibold text-blue-800">Customer Service Representative - Registries</h3>
+          <p class="text-sm text-slate-500">eHealth Saskatchewan • Feb 2025 - Present</p>
+          <ul class="list-disc mt-4 ml-5 text-slate-700 space-y-2">
+            <li>Tier 1 technical support for healthcare professionals, handling access & configuration issues.</li>
+            <li>Accurate ticketing, priority triage and escalation to maintain SLA compliance.</li>
+            <li>User education and strict adherence to data privacy processes.</li>
+          </ul>
+        </article>
+
+        <article class="card p-6 reveal" tabindex="0" aria-labelledby="exp2">
+          <h3 id="exp2" class="text-xl font-semibold text-blue-800">Data Quality Administrator - Registries</h3>
+          <p class="text-sm text-slate-500">eHealth Saskatchewan • Apr 2025 - Sep 2025</p>
+          <ul class="list-disc mt-4 ml-5 text-slate-700 space-y-2">
+            <li>Performed data quality audits and resolved discrepancies to improve registry reliability.</li>
+            <li>Built data cleansing procedures and validation checks in collaboration with IT.</li>
+            <li>Improved reporting fidelity and reduced repeat data issues.</li>
+          </ul>
+        </article>
+
+        <article class="card p-6 md:col-span-2 reveal" tabindex="0" aria-labelledby="exp3">
+          <h3 id="exp3" class="text-xl font-semibold text-blue-800">Supplier Success Professional</h3>
+          <p class="text-sm text-slate-500">Avetta LLC • Oct 2021 – Apr 2023</p>
+          <ul class="list-disc mt-4 ml-5 text-slate-700 space-y-2">
+            <li>Front-line support for a cloud compliance platform using Salesforce Service Cloud.</li>
+            <li>Managed high-volume cases while meeting SLAs and QA expectations.</li>
+            <li>Contributed to knowledge base content and product QA feedback loops.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <hr class="my-10 border-slate-200">
+
+    <!-- Skills with animated bars -->
     <section id="skills" class="py-8" aria-labelledby="skillsHeading">
       <h2 id="skillsHeading" class="text-2xl font-bold text-center mb-6 reveal">Skills & Competencies</h2>
       <div class="max-w-4xl mx-auto space-y-6">
+
         <div class="card p-6 reveal">
           <h4 class="font-semibold text-lg mb-3 flex items-center gap-2"><i data-lucide="tool" class="w-5 h-5 text-teal-600" aria-hidden></i> Support Systems & Tools</h4>
           <div class="flex flex-wrap gap-3 mb-4">
@@ -176,7 +227,46 @@
             </div>
           </div>
         </div>
+
+        <div class="card p-6 reveal">
+          <h4 class="font-semibold text-lg mb-3 flex items-center gap-2"><i data-lucide="database" class="w-5 h-5 text-teal-600" aria-hidden></i> Data Integrity & Compliance</h4>
+          <div class="flex flex-wrap gap-3 mb-4">
+            <span class="badge">Data Audits</span>
+            <span class="badge">Cleansing</span>
+            <span class="badge">Privacy Protocols</span>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Audit accuracy</span><strong class="text-slate-800">88%</strong></div>
+              <div class="progress-track" aria-hidden><div class="progress-fill" data-value="88"></div></div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>RCA effectiveness</span><strong class="text-slate-800">82%</strong></div>
+              <div class="progress-track" aria-hidden><div class="progress-fill" data-value="82"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-2 reveal">
+          <p class="text-sm text-slate-600">Education: <strong class="text-blue-800">Diploma in Computer Science</strong> — University of Regina</p>
+        </div>
       </div>
+    </section>
+
+    <hr class="my-10 border-slate-200">
+
+    <!-- Contact -->
+    <section id="contact" class="py-8 text-center" aria-labelledby="contactHeading">
+      <h2 id="contactHeading" class="text-2xl font-bold mb-4 reveal">Let's Connect</h2>
+      <p class="text-sm text-slate-700 mb-6 reveal">Interested in reliable support or improving data quality? Reach out and let's talk about a 30-day plan.</p>
+
+      <div class="flex items-center justify-center gap-3 reveal">
+        <a href="mailto:shivam2001amin@gmail.com" class="btn-primary"><i data-lucide="mail" class="w-4 h-4" aria-hidden></i><span>Email</span></a>
+        <a href="tel:+16395600583" class="btn-ghost"><i data-lucide="phone" class="w-4 h-4" aria-hidden></i><span>Call</span></a>
+      </div>
+
     </section>
 
   </main>
@@ -238,7 +328,7 @@
 
     function parseRGB(rgb){
       if(!rgb) return null;
-      const m = rgb.match(/rgba?\\((\\d+),\\s*(\\d+),\\s*(\\d+)(?:,\\s*([\\d.]+))?\\)/i);
+      const m = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/i);
       if(!m) return null;
       return {r:parseInt(m[1],10), g:parseInt(m[2],10), b:parseInt(m[3],10), a: m[4] ? parseFloat(m[4]) : 1};
     }
@@ -283,9 +373,9 @@
       ];
       targets.forEach(t=>{ const res = elementSummary(t.sel,t.label); if(res) checks.push(res); });
 
-      let html = '<table style=\"width:100%;border-collapse:collapse\"><thead><tr><th style=\"text-align:left;padding:8px;border-bottom:1px solid #ddd\">Element</th><th style=\"padding:8px;border-bottom:1px solid #ddd\">Contrast</th><th style=\"padding:8px;border-bottom:1px solid #ddd\">Required</th><th style=\"padding:8px;border-bottom:1px solid #ddd\">Result</th></tr></thead><tbody>';
+      let html = '<table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Element</th><th style="padding:8px;border-bottom:1px solid #ddd">Contrast</th><th style="padding:8px;border-bottom:1px solid #ddd">Required</th><th style="padding:8px;border-bottom:1px solid #ddd">Result</th></tr></thead><tbody>';
       checks.forEach(c=>{
-        html += `<tr><td style=\"padding:8px;border-bottom:1px solid #eee\">${c.desc}</td><td style=\"padding:8px;border-bottom:1px solid #eee\">${c.ratio}:1</td><td style=\"padding:8px;border-bottom:1px solid #eee\">${c.threshold}:1</td><td style=\"padding:8px;border-bottom:1px solid #eee\">${c.pass? '<span class=\"report-pass\">PASS</span>':'<span class=\"report-fail\">FAIL</span>'}</td></tr>`;
+        html += `<tr><td style="padding:8px;border-bottom:1px solid #eee">${c.desc}</td><td style="padding:8px;border-bottom:1px solid #eee">${c.ratio}:1</td><td style="padding:8px;border-bottom:1px solid #eee">${c.threshold}:1</td><td style="padding:8px;border-bottom:1px solid #eee">${c.pass? '<span class="report-pass">PASS</span>':'<span class="report-fail">FAIL</span>'}</td></tr>`;
       });
       html += '</tbody></table>';
 
