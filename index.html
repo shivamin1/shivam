@@ -161,4 +161,186 @@
         <article class="card p-6 md:col-span-2 reveal" tabindex="0">
           <h3 class="text-xl font-semibold text-blue-800">Supplier Success Professional</h3>
           <p class="text-sm text-slate-500">Avetta LLC • Oct 2021 – Apr 2023</p>
-          <ul
+          <ul class="list-disc mt-4 ml-5 text-slate-700 space-y-2">
+            <li>Front-line support for a cloud compliance platform using Salesforce Service Cloud.</li>
+            <li>Managed high-volume cases while meeting SLAs and QA expectations.</li>
+            <li>Contributed to knowledge base content and product QA feedback loops.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <hr class="my-10 border-slate-200">
+
+    <!-- Skills with animated bars -->
+    <section id="skills" class="py-8">
+      <h2 class="text-2xl font-bold text-center mb-6 reveal">Skills & Competencies</h2>
+      <div class="max-w-4xl mx-auto space-y-6">
+
+        <div class="card p-6 reveal">
+          <h4 class="font-semibold text-lg mb-3 flex items-center gap-2"><i data-lucide="tool" class="w-5 h-5 text-teal-600"></i> Support Systems & Tools</h4>
+          <div class="flex flex-wrap gap-3 mb-4">
+            <span class="badge">Salesforce</span>
+            <span class="badge">Jira / ServiceNow</span>
+            <span class="badge">PHRS / Vital Statistics</span>
+            <span class="badge">Remote Desktop</span>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>First contact resolution</span><strong class="text-slate-800">85%</strong></div>
+              <div class="progress-track"><div class="progress-fill" data-value="85"></div></div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Ticket triage</span><strong class="text-slate-800">78%</strong></div>
+              <div class="progress-track"><div class="progress-fill" data-value="78"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-6 reveal">
+          <h4 class="font-semibold text-lg mb-3 flex items-center gap-2"><i data-lucide="database" class="w-5 h-5 text-teal-600"></i> Data Integrity & Compliance</h4>
+          <div class="flex flex-wrap gap-3 mb-4">
+            <span class="badge">Data Audits</span>
+            <span class="badge">Cleansing</span>
+            <span class="badge">Privacy Protocols</span>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Audit accuracy</span><strong class="text-slate-800">88%</strong></div>
+              <div class="progress-track"><div class="progress-fill" data-value="88"></div></div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>RCA effectiveness</span><strong class="text-slate-800">82%</strong></div>
+              <div class="progress-track"><div class="progress-fill" data-value="82"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-2 reveal">
+          <p class="text-sm text-slate-600">Education: <strong class="text-blue-800">Diploma in Computer Science</strong> — University of Regina</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-10 border-slate-200">
+
+    <!-- Contact -->
+    <section id="contact" class="py-8 text-center">
+      <h2 class="text-2xl font-bold mb-4 reveal">Let's Connect</h2>
+      <p class="text-sm text-slate-700 mb-6 reveal">Interested in reliable support or improving data quality? Reach out and let's talk about a 30-day plan.</p>
+
+      <div class="flex items-center justify-center gap-3 reveal">
+        <a href="mailto:shivam2001amin@gmail.com" class="btn-primary"><i data-lucide="mail" class="w-4 h-4"></i><span>Email</span></a>
+        <a href="tel:+16395600583" class="btn-ghost"><i data-lucide="phone" class="w-4 h-4"></i><span>Call</span></a>
+        <button id="viewResume" class="btn-ghost" aria-haspopup="dialog"><i data-lucide="download" class="w-4 h-4"></i><span>Resume</span></button>
+      </div>
+
+      <!-- Modal (Resume) -->
+      <div id="resumeModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40">
+        <div class="w-[90%] max-w-2xl p-6 card">
+          <div class="flex justify-between items-start gap-4">
+            <div>
+              <h3 class="text-lg font-bold">Resume — Shivam Amin</h3>
+              <p class="text-sm text-slate-600">Download or copy the content below.</p>
+            </div>
+            <button id="closeResume" class="p-2 rounded-md hover:bg-slate-100"><i data-lucide="x" class="w-5 h-5"></i></button>
+          </div>
+          <div class="mt-4 text-sm text-slate-800 max-h-[50vh] overflow-auto">
+            <!-- Short resume preview -->
+            <pre class="whitespace-pre-wrap">Customer Service Representative - Registries
+            eHealth Saskatchewan | Feb 2025 - Present
+
+Data Quality Administrator - Registries
+            eHealth Saskatchewan | Apr 2025 - Sep 2025
+
+Supplier Success Professional
+            Avetta LLC | Oct 2021 - Apr 2023
+
+Education: Diploma in Computer Science — University of Regina</pre>
+          </div>
+          <div class="mt-4 flex gap-3 justify-end">
+            <a href="#" class="btn-primary" download><i data-lucide="download" class="w-4 h-4"></i><span>Download PDF</span></a>
+            <button id="copyResume" class="btn-ghost"><i data-lucide="copy" class="w-4 h-4"></i><span>Copy</span></button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-50 py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-600">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+        <a href="#" aria-label="GitHub"><i data-lucide="github" class="w-5 h-5"></i></a>
+        <a href="#" aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
+      </div>
+      <p>&copy; 2025 <strong>Shivam Amin</strong></p>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="backTop" class="back-to-top hidden" title="Back to top"><i data-lucide="arrow-up" class="w-4 h-4"></i></button>
+
+  <script>
+    // Initialize icons
+    if(window.lucide) lucide.createIcons();
+
+    // Helper: query
+    const $ = (s, ctx=document)=> ctx.querySelector(s);
+
+    // Mobile menu
+    const mobileBtn = $('#mobileBtn');
+    const mobileMenu = $('#mobileMenu');
+    mobileBtn && mobileBtn.addEventListener('click', ()=> mobileMenu.classList.toggle('hidden'));
+
+    // Reveal on scroll
+    const ro = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); ro.unobserve(e.target); }});
+    }, {threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+    // Animate progress bars when in view
+    document.querySelectorAll('.progress-fill').forEach(bar=>{ const val = bar.getAttribute('data-value')||0; bar.style.width='0%'; });
+    const pObs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.querySelectorAll('.progress-fill').forEach(b=>{ b.style.width = b.getAttribute('data-value') + '%'; }); pObs.unobserve(e.target); } }); }, {threshold:0.2});
+    document.querySelectorAll('#skills .card').forEach(el=>pObs.observe(el));
+
+    // Tilt microinteraction
+    document.querySelectorAll('[data-tilt]').forEach(el=>{
+      let rect = null; el.addEventListener('mousemove', (ev)=>{ rect = rect || el.getBoundingClientRect(); const x = (ev.clientX - rect.left) / rect.width - 0.5; const y = (ev.clientY - rect.top) / rect.height - 0.5; el.style.transform = `rotateX(${ -y * 6 }deg) rotateY(${ x * 8 }deg)`; });
+      el.addEventListener('mouseleave', ()=> el.style.transform = 'none');
+    });
+
+    // Theme toggle (persist)
+    const themeToggle = $('#themeToggle');
+    const root = document.documentElement;
+    const current = localStorage.getItem('theme');
+    if(current === 'dark') root.classList.add('dark');
+    themeToggle && themeToggle.addEventListener('click', ()=>{
+      const isDark = root.classList.toggle('dark'); themeToggle.setAttribute('aria-pressed', String(isDark)); localStorage.setItem('theme', isDark? 'dark':'light');
+    });
+
+    // Resume modal
+    const viewResume = $('#viewResume'); const resumeModal = $('#resumeModal'); const closeResume = $('#closeResume'); const copyBtn = $('#copyResume');
+    viewResume && viewResume.addEventListener('click', ()=> resumeModal.classList.remove('hidden'));
+    closeResume && closeResume.addEventListener('click', ()=> resumeModal.classList.add('hidden'));
+    copyBtn && copyBtn.addEventListener('click', async ()=>{
+      const text = document.querySelector('#resumeModal pre').innerText; await navigator.clipboard.writeText(text); copyBtn.innerText = 'Copied!'; setTimeout(()=> copyBtn.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i><span>Copy</span>', 1400); if(window.lucide) lucide.createIcons();
+    });
+
+    // Back to top
+    const backTop = $('#backTop'); window.addEventListener('scroll', ()=>{ if(window.scrollY > 360) backTop.classList.remove('hidden'); else backTop.classList.add('hidden'); }); backTop && backTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Keyboard: focus search/demo on '/'
+    window.addEventListener('keydown', (e)=>{ if(e.key === '/') { e.preventDefault(); document.querySelector('#home')?.scrollIntoView({behavior:'smooth'}); } });
+
+    // Recreate icons after dynamic changes
+    document.addEventListener('click', ()=> { if(window.lucide) lucide.createIcons(); });
+  </script>
+</body>
+</html>
