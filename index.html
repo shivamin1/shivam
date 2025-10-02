@@ -4,273 +4,411 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shivam Amin - IT Support & Data Quality Portfolio</title>
-    <!-- Load Tailwind CSS -->
+
+    <!-- Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons -->
+
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        /* Define a light background with dark primary text */
+        /* Page basics */
+        :root {
+            --accent: #0d9488; /* teal-600 */
+            --brand: #1e3a8a; /* blue-800 */
+            --muted: #64748b; /* slate-500 */
+            --card: #f8fafc; /* slate-50 */
+        }
+        html, body { height: 100%; }
         body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            background: linear-gradient(180deg,#ffffff 0%, #fbfbfd 100%);
+            color: #0f172a; /* slate-900 */
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
             scroll-behavior: smooth;
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff; /* Pure White background */
-            color: #1e293b; /* Slate-800 for body text */
-        }
-        /* Custom scrollbar matching the accent color */
-        body::-webkit-scrollbar {
-            width: 8px;
-        }
-        body::-webkit-scrollbar-thumb {
-            background-color: #0d9488; /* Teal-600 */
-            border-radius: 4px;
         }
 
-        /* Class for the sophisticated card look with hover glow (adjusted for light mode) */
+        /* Custom scrollbar */
+        body::-webkit-scrollbar { width: 10px; }
+        body::-webkit-scrollbar-track { background: transparent; }
+        body::-webkit-scrollbar-thumb { background: rgba(13,148,136,0.14); border-radius: 8px; }
+
+        /* Card style used across the page */
         .tech-card {
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: 1px solid #e2e8f0; /* Slate-200 border */
-            background: #f8fafc; /* Slate-50 background */
+            transition: transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .25s ease, border-color .25s ease;
+            border: 1px solid rgba(226,232,240,0.9);
+            background: var(--card);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Lighter shadow for light mode */
+            box-shadow: 0 6px 18px rgba(2,6,23,0.04);
         }
+        .tech-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(13,148,136,0.08); border-color: rgba(13,148,136,0.25); }
 
-        .tech-card:hover {
-            transform: translateY(-8px);
-            border-color: #0d9488; /* Teal-600 on hover */
-            box-shadow: 0 15px 30px rgba(13, 148, 136, 0.15); /* Teal glow effect for light mode */
-        }
-
-        /* New button style for modern look */
-        /* Primary button: Dark Blue */
+        /* Buttons (kept in CSS to ensure consistent behavior) */
         .btn-primary {
-            @apply bg-blue-800 text-white font-bold py-3 px-8 rounded-xl hover:bg-blue-700 transition duration-300 transform hover:scale-[1.02] shadow-xl shadow-blue-800/30 flex items-center justify-center;
+            background-color: var(--brand);
+            color: white;
+            font-weight: 700;
+            padding: .7rem 1.25rem;
+            border-radius: .75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: 0 10px 22px rgba(30,58,138,0.15);
+            transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
         }
-        /* Secondary button: Teal */
-        .btn-secondary {
-            @apply bg-teal-600 text-white font-bold py-3 px-8 rounded-xl border border-teal-600 hover:bg-teal-500 transition duration-300 transform hover:scale-[1.02] shadow-lg flex items-center justify-center;
-        }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.02); background-color: #16357b; box-shadow: 0 18px 34px rgba(30,58,138,0.12); }
+        .btn-primary:focus { outline: 3px solid rgba(29,78,216,0.12); outline-offset: 2px; }
 
-        /* Skill badge enhancement */
-        .skill-badge {
-            @apply inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-teal-600/10 text-teal-800 transition duration-200 hover:bg-teal-600/30 hover:text-slate-900 transform hover:scale-105;
+        .btn-secondary {
+            background-color: var(--accent);
+            color: white;
+            font-weight: 700;
+            padding: .7rem 1.25rem;
+            border-radius: .75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 1px solid rgba(13,148,136,0.95);
+            transition: transform .18s ease, opacity .18s ease;
         }
-        .nav-link {
-            @apply text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-800 px-3 py-2 rounded-lg transition duration-300;
+        .btn-secondary:hover { transform: translateY(-3px) scale(1.02); opacity: .98; }
+
+        .skill-badge { display:inline-block; padding:.4rem .9rem; font-size:.9rem; font-weight:600; border-radius:999px; background: rgba(13,148,136,0.08); color: #065f52; transition: transform .18s ease, background .18s ease; }
+        .skill-badge:hover { transform: translateY(-4px) scale(1.03); background: rgba(13,148,136,0.15); }
+
+        .nav-link { font-weight:600; color: #334155; padding:.45rem .6rem; border-radius:.6rem; display:inline-block; transition: background .18s ease, color .18s ease; }
+        .nav-link:hover { background: rgba(15,23,42,0.04); color: var(--brand); }
+
+        /* Reveal on scroll */
+        .reveal { opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1); will-change: transform, opacity; }
+        .reveal.show { opacity:1; transform: none; }
+
+        /* Animated gradient for hero background element */
+        .hero-gradient {
+            position: absolute; inset: -20% -10% auto auto; width: 60vw; height: 60vh; pointer-events:none; filter: blur(60px); opacity: .14; transform: rotate(8deg);
+            background: linear-gradient(135deg, rgba(13,148,136,1), rgba(30,58,138,1));
+            mix-blend-mode: multiply;
+            animation: float 9s ease-in-out infinite;
         }
+        @keyframes float { 0% { transform: translateY(0) rotate(6deg) } 50% { transform: translateY(-18px) rotate(-6deg) } 100% { transform: translateY(0) rotate(6deg) } }
+
+        /* Simple progress bar */
+        .progress-track { background: rgba(2,6,23,0.04); border-radius:999px; overflow:hidden; height:10px; }
+        .progress-bar { height:100%; width:0%; border-radius:999px; background: linear-gradient(90deg,var(--brand), var(--accent)); transition: width 1.2s cubic-bezier(.2,.9,.2,1); }
+
+        /* Back to top */
+        .back-to-top { position: fixed; right: 20px; bottom: 28px; z-index: 60; display: inline-flex; align-items:center; justify-content:center; border-radius:12px; padding: .6rem .7rem; box-shadow: 0 10px 20px rgba(2,6,23,0.12); background: white; border:1px solid rgba(2,6,23,0.04); }
+        .back-to-top.hidden { display:none; }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Header & Navigation -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-lg shadow-slate-200 border-b border-blue-800/20">
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-blue-800/5">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0">
+                <div class="flex items-center gap-3">
                     <a href="#home" class="flex items-center space-x-3">
-                        <!-- Profile Picture (Replace the src URL with your actual image) -->
-                        <img src="https://placehold.co/48x48/f8fafc/1e293b?text=SA" alt="Shivam Amin Profile" class="w-12 h-12 rounded-full border-2 border-blue-800 ring-2 ring-teal-600 object-cover">
-                        <span class="text-xl font-extrabold text-blue-800 tracking-wider hidden sm:inline">Shivam Amin</span>
+                        <img src="https://placehold.co/56x56/f8fafc/1e293b?text=SA" alt="Shivam Amin" class="w-12 h-12 rounded-full border-2 border-blue-800 ring-1 ring-teal-100 object-cover">
+                        <span class="text-lg font-extrabold text-blue-800 tracking-wide hidden sm:inline">Shivam Amin</span>
                     </a>
                 </div>
+
                 <!-- Desktop Navigation -->
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-1">
+                    <div class="ml-10 flex items-baseline space-x-3">
                         <a href="#about" class="nav-link">About</a>
                         <a href="#experience" class="nav-link">Experience</a>
                         <a href="#skills" class="nav-link">Skills</a>
                         <a href="#contact" class="nav-link">Contact</a>
                     </div>
                 </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" class="p-2 inline-flex items-center justify-center rounded-md text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                        <span class="sr-only">Open main menu</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu (hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden mt-3 pb-4" role="menu" aria-labelledby="mobile-menu-btn">
+                <div class="space-y-1 px-2">
+                    <a href="#about" class="block nav-link">About</a>
+                    <a href="#experience" class="block nav-link">Experience</a>
+                    <a href="#skills" class="block nav-link">Skills</a>
+                    <a href="#contact" class="block nav-link">Contact</a>
+                </div>
             </div>
         </nav>
     </header>
-    
+
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
+
         <!-- Hero Section -->
-        <section id="home" class="py-24 md:py-32 flex flex-col items-center justify-center text-center relative overflow-hidden">
-            <div class="max-w-5xl">
-                <p class="text-xl font-semibold text-teal-600 mb-4 tracking-widest uppercase">IT Support & Data Integrity Specialist</p>
-                <h1 class="text-6xl sm:text-8xl font-extrabold tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-teal-600">
-                    <span class="block">Shivam Amin</span>
-                </h1>
-                <p class="mt-3 text-2xl text-slate-700 mx-auto max-w-3xl">
-                    A detail-oriented professional blending expertise in **front-line technical support** and mission-critical **data quality assurance** within public health and enterprise compliance platforms.
+        <section id="home" class="py-20 md:py-28 flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div class="hero-gradient" aria-hidden="true"></div>
+            <div class="max-w-4xl reveal">
+                <p class="text-sm font-semibold text-teal-600 mb-4 tracking-widest uppercase">IT Support & Data Integrity Specialist</p>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 text-slate-900">Shivam Amin</h1>
+                <p class="mt-3 text-lg text-slate-700 mx-auto max-w-3xl">
+                    A detail-oriented professional blending expertise in <strong>front-line technical support</strong> and mission-critical <strong>data quality assurance</strong> within public health and enterprise compliance platforms.
                 </p>
-                <div class="mt-12 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+
+                <div class="mt-10 flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-6">
                     <a href="#experience" class="btn-primary">
-                        <i data-lucide="shield-check" class="w-5 h-5 mr-3"></i> View Expertise
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        <span>View Expertise</span>
                     </a>
                     <a href="#contact" class="btn-secondary">
-                        <i data-lucide="send" class="w-5 h-5 mr-3"></i> Connect
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Connect</span>
                     </a>
                 </div>
             </div>
-            <!-- Removed subtle tech background element as it works poorly on light mode -->
         </section>
-        
-        <!-- Separator -->
-        <hr class="my-16 border-slate-300">
 
-        <!-- About Section (Expanded) -->
-        <section id="about" class="py-16">
-            <h2 class="text-4xl font-bold text-center mb-12 text-blue-800">About My Approach</h2>
-            <div class="max-w-3xl mx-auto text-center space-y-6 text-xl text-slate-700">
+        <hr class="my-12 border-slate-200">
+
+        <!-- About Section -->
+        <section id="about" class="py-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-blue-800 reveal">About My Approach</h2>
+            <div class="max-w-3xl mx-auto text-center space-y-6 text-base text-slate-700 reveal">
                 <p>
-                    My career is built on a dual foundation: **ensuring system uptime for users** and **maintaining the integrity of the data itself**. Whether it’s troubleshooting complex login issues for healthcare professionals or executing rigorous data quality audits, I focus on the root cause to deliver long-term stability.
+                    My career is built on a dual foundation: <strong>ensuring system uptime for users</strong> and <strong>maintaining the integrity of the data itself</strong>. Whether it’s troubleshooting complex login issues for healthcare professionals or executing rigorous data quality audits, I focus on the root cause to deliver long-term stability.
                 </p>
                 <p>
-                    I excel in high-compliance environments, particularly those governed by **HIPA and strict data privacy protocols**. My experience spans enterprise compliance (Avetta) and public sector health (eHealth), proving my adaptability and unwavering commitment to secure and reliable operations.
+                    I excel in high-compliance environments, particularly those governed by strict data privacy protocols. My experience spans enterprise compliance and public sector health, showing adaptability and commitment to secure, reliable operations.
                 </p>
             </div>
         </section>
 
-        <!-- Separator -->
-        <hr class="my-16 border-slate-300">
+        <hr class="my-12 border-slate-200">
 
         <!-- Experience Section -->
-        <section id="experience" class="py-16">
-            <h2 class="text-4xl font-bold text-center mb-12 text-blue-800">Professional Experience</h2>
-            
-            <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
-                
-                <!-- Role 1: Customer Service Representative - Registries -->
-                <div class="tech-card p-6 rounded-xl">
-                    <h3 class="text-2xl font-semibold text-blue-800">Customer Service Representative - Registries</h3>
-                    <p class="text-lg text-slate-600">eHealth Saskatchewan, Regina, SK | Feb 2025 - Present</p>
-                    <ul class="list-disc list-outside ml-5 mt-4 text-slate-700 space-y-2">
-                        <li>Serve as **Tier 1 technical support** for healthcare professionals, resolving issues related to access, configuration, and navigation of digital health systems (PHRS, Vital Statistics).</li>
-                        <li>Utilize internal ticketing systems for accurate logging, initial troubleshooting, and **timely escalation** of complex IT problems.</li>
-                        <li>Provide end-user education and guidance, upholding strict **HIPA and data privacy compliance** standards in all interactions.</li>
-                    </ul>
-                </div>
-                
-                <!-- Role 2: Data Quality Administrator (NEW) -->
-                <div class="tech-card p-6 rounded-xl">
-                    <h3 class="text-2xl font-semibold text-blue-800">Data Quality Administrator - Registries</h3>
-                    <p class="text-lg text-slate-600">eHealth Saskatchewan, Regina, SK | April 2025 – September 2025</p>
-                    <ul class="list-disc list-outside ml-5 mt-4 text-slate-700 space-y-2">
-                        <li>Executed comprehensive **data quality audits** on provincial health registry data to ensure high standards of accuracy, completeness, and consistency.</li>
-                        <li>Investigated and **resolved data discrepancies** and errors flagged by system reports, directly improving database reliability.</li>
-                        <li>Developed and implemented **data cleansing procedures** in collaboration with IT to enhance source data collection and validation processes.</li>
+        <section id="experience" class="py-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-blue-800 reveal">Professional Experience</h2>
+
+            <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+                <div class="tech-card p-6 rounded-xl reveal">
+                    <h3 class="text-xl font-semibold text-blue-800">Customer Service Representative - Registries</h3>
+                    <p class="text-sm text-slate-600">eHealth Saskatchewan, Regina, SK | Feb 2025 - Present</p>
+                    <ul class="list-disc ml-5 mt-4 text-slate-700 space-y-2">
+                        <li>Serve as <strong>Tier 1 technical support</strong> for healthcare professionals, resolving issues related to access, configuration, and navigation of digital health systems.</li>
+                        <li>Utilize internal ticketing systems for accurate logging, initial troubleshooting, and timely escalation of complex IT problems.</li>
+                        <li>Provide end-user education and guidance while upholding strict data privacy standards.</li>
                     </ul>
                 </div>
 
-                <!-- Role 3: Supplier Success Professional -->
-                <div class="tech-card p-6 rounded-xl md:col-span-2">
-                    <h3 class="text-2xl font-semibold text-blue-800">Supplier Success Professional</h3>
-                    <p class="text-lg text-slate-600">Avetta LLC, Calgary, AB (Hybrid) | Oct 2021 – Apr 2023</p>
-                    <ul class="list-disc list-outside ml-5 mt-4 text-slate-700 space-y-2">
-                        <li>Delivered front-line support for a cloud-based compliance platform, troubleshooting issues including **portal access, file uploads, and browser compatibility**.</li>
-                        <li>Managed high-volume support cases using **Salesforce Service Cloud**, consistently achieving high resolution efficiency within defined SLA targets.</li>
-                        <li>Contributed to knowledge base development and collaborated with Product teams on bug reporting and QA for platform updates.</li>
+                <div class="tech-card p-6 rounded-xl reveal">
+                    <h3 class="text-xl font-semibold text-blue-800">Data Quality Administrator - Registries</h3>
+                    <p class="text-sm text-slate-600">eHealth Saskatchewan, Regina, SK | Apr 2025 – Sep 2025</p>
+                    <ul class="list-disc ml-5 mt-4 text-slate-700 space-y-2">
+                        <li>Executed comprehensive <strong>data quality audits</strong> on provincial health registry data to ensure accuracy and consistency.</li>
+                        <li>Investigated and resolved data discrepancies flagged by system reports, improving overall database reliability.</li>
+                        <li>Collaborated with IT to develop data cleansing procedures and validation checks.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card p-6 rounded-xl md:col-span-2 reveal">
+                    <h3 class="text-xl font-semibold text-blue-800">Supplier Success Professional</h3>
+                    <p class="text-sm text-slate-600">Avetta LLC, Calgary, AB (Hybrid) | Oct 2021 – Apr 2023</p>
+                    <ul class="list-disc ml-5 mt-4 text-slate-700 space-y-2">
+                        <li>Delivered front-line support for a cloud-based compliance platform, troubleshooting access, file uploads, and browser compatibility.</li>
+                        <li>Managed high-volume cases using Salesforce Service Cloud while maintaining SLA targets.</li>
+                        <li>Contributed to knowledge base development and collaborated with Product teams on QA and bug reporting.</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Separator -->
-        <hr class="my-16 border-slate-300">
+        <hr class="my-12 border-slate-200">
 
         <!-- Skills Section -->
-        <section id="skills" class="py-16">
-            <h2 class="text-4xl font-bold text-center mb-12 text-blue-800">Technical Skills & Competencies</h2>
-            
-            <div class="max-w-4xl mx-auto space-y-8">
-                
-                <!-- Skill Category 1: Tools & Platforms -->
-                <div class="skill-category tech-card p-6 rounded-xl">
-                    <h4 class="font-bold text-xl text-blue-800 mb-4 flex items-center">
-                        <i data-lucide="tool" class="w-6 h-6 mr-3 text-teal-600"></i> Support Systems & Tools
+        <section id="skills" class="py-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-blue-800 reveal">Technical Skills & Competencies</h2>
+
+            <div class="max-w-4xl mx-auto space-y-6">
+
+                <div class="skill-category tech-card p-6 rounded-xl reveal">
+                    <h4 class="font-bold text-lg text-blue-800 mb-4 flex items-center">
+                        <i data-lucide="tool" class="w-5 h-5 mr-3 text-teal-600"></i> Support Systems & Tools
                     </h4>
-                    <div class="flex flex-wrap gap-3">
+                    <div class="flex flex-wrap gap-3 mb-4">
                         <span class="skill-badge">Salesforce (Service Cloud)</span>
-                        <span class="skill-badge">Ticketing Systems (Jira/ServiceNow concept)</span>
-                        <span class="skill-badge">PHRS / Vital Statistics Systems</span>
-                        <span class="skill-badge">Remote Desktop Tools</span>
-                        <span class="skill-badge">Microsoft 365 / Office</span>
+                        <span class="skill-badge">Ticketing (Jira/ServiceNow)</span>
+                        <span class="skill-badge">PHRS / Vital Statistics</span>
+                        <span class="skill-badge">Remote Desktop</span>
+                        <span class="skill-badge">Microsoft 365</span>
+                    </div>
+                    <!-- Example interactive progress rows (editable) -->
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm text-slate-600 mb-1"><span>First-contact support</span><span class="text-slate-800 font-medium">85%</span></div>
+                            <div class="progress-track" aria-hidden>
+                                <div class="progress-bar" data-progress="85"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Ticket triage & escalation</span><span class="text-slate-800 font-medium">78%</span></div>
+                            <div class="progress-track" aria-hidden>
+                                <div class="progress-bar" data-progress="78"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Skill Category 2: Data & Compliance -->
-                <div class="skill-category tech-card p-6 rounded-xl">
-                    <h4 class="font-bold text-xl text-blue-800 mb-4 flex items-center">
-                        <i data-lucide="database" class="w-6 h-6 mr-3 text-teal-600"></i> Data Integrity & Compliance
+                <div class="skill-category tech-card p-6 rounded-xl reveal">
+                    <h4 class="font-bold text-lg text-blue-800 mb-4 flex items-center">
+                        <i data-lucide="database" class="w-5 h-5 mr-3 text-teal-600"></i> Data Integrity & Compliance
                     </h4>
-                    <div class="flex flex-wrap gap-3">
+                    <div class="flex flex-wrap gap-3 mb-4">
                         <span class="skill-badge">Data Quality Auditing</span>
-                        <span class="skill-badge">Data Cleansing Procedures</span>
-                        <span class="skill-badge">HIPA & Data Privacy Protocols</span>
-                        <span class="skill-badge">System Documentation</span>
-                        <span class="skill-badge">Problem Identification & RCA</span>
+                        <span class="skill-badge">Cleansing & Validation</span>
+                        <span class="skill-badge">Data Privacy Protocols</span>
+                        <span class="skill-badge">Documentation</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Audit & validation</span><span class="text-slate-800 font-medium">88%</span></div>
+                            <div class="progress-track" aria-hidden>
+                                <div class="progress-bar" data-progress="88"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Root cause analysis</span><span class="text-slate-800 font-medium">82%</span></div>
+                            <div class="progress-track" aria-hidden>
+                                <div class="progress-bar" data-progress="82"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Skill Category 3: OS & Networking -->
-                <div class="skill-category tech-card p-6 rounded-xl">
-                    <h4 class="font-bold text-xl text-blue-800 mb-4 flex items-center">
-                        <i data-lucide="monitor" class="w-6 h-6 mr-3 text-teal-600"></i> Operating Systems & Hardware
+                <div class="skill-category tech-card p-6 rounded-xl reveal">
+                    <h4 class="font-bold text-lg text-blue-800 mb-4 flex items-center">
+                        <i data-lucide="monitor" class="w-5 h-5 mr-3 text-teal-600"></i> OS & Networking
                     </h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-badge">Windows 10/11 Troubleshooting</span>
-                        <span class="skill-badge">PC Setup/Hardware</span>
-                        <span class="skill-badge">LAN/WAN/TCP/IP Basics</span>
-                        <span class="skill-badge">iOS & Android Basics</span>
-                        <span class="skill-badge">Active Directory Familiarity</span>
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <span class="skill-badge">Windows 10/11</span>
+                        <span class="skill-badge">PC Hardware</span>
+                        <span class="skill-badge">TCP/IP Basics</span>
+                        <span class="skill-badge">Active Directory</span>
                     </div>
                 </div>
+
             </div>
 
-            <div class="mt-16 text-center">
-                <p class="text-xl text-slate-700">
-                    <i data-lucide="graduation-cap" class="w-5 h-5 mr-2 inline text-teal-600"></i>
-                    Education: <span class="font-semibold text-blue-800">Diploma in Computer Science</span> - University of Regina (Jan 2019-Dec 2020)
+            <div class="mt-8 text-center reveal">
+                <p class="text-base text-slate-700 inline-flex items-center gap-2">
+                    <i data-lucide="graduation-cap" class="w-4 h-4 text-teal-600"></i>
+                    Education: <span class="font-semibold text-blue-800 ml-1">Diploma in Computer Science</span> - University of Regina
                 </p>
             </div>
         </section>
 
-        <!-- Separator -->
-        <hr class="my-16 border-slate-300">
+        <hr class="my-12 border-slate-200">
 
         <!-- Contact Section -->
-        <section id="contact" class="py-16 text-center">
-            <h2 class="text-4xl font-bold mb-8 text-blue-800">Ready for a Secure and Reliable Future?</h2>
-            <p class="text-xl text-slate-700 max-w-2xl mx-auto mb-10">
+        <section id="contact" class="py-12 text-center">
+            <h2 class="text-3xl font-bold mb-6 text-blue-800 reveal">Ready for a Secure and Reliable Future?</h2>
+            <p class="text-base text-slate-700 max-w-2xl mx-auto mb-6 reveal">
                 Let's discuss how my blend of technical support and data integrity expertise can drive efficiency and security for your organization.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-                <a href="mailto:shivam2001amin@gmail.com" class="btn-primary py-4 px-10">
-                    <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Email Me Directly
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 reveal">
+                <a href="mailto:shivam2001amin@gmail.com" class="btn-primary py-3 px-6">
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                    <span>Email Me</span>
                 </a>
-                <span class="text-xl text-slate-900 flex items-center">
-                    <i data-lucide="phone" class="w-5 h-5 mr-3 text-teal-600"></i> (639) 560-0583
-                </span>
+                <a href="tel:+16395600583" class="btn-secondary py-3 px-6">
+                    <i data-lucide="phone" class="w-4 h-4"></i>
+                    <span>Call</span>
+                </a>
             </div>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-100 border-t border-blue-800/20 py-8 mt-12">
+    <footer class="bg-slate-50 border-t border-blue-800/5 py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-600">
-            <p>&copy; 2025 Shivam Amin. Built for professional impact.</p>
+            <div class="flex items-center justify-center gap-4 mb-4">
+                <a href="#" class="text-slate-600 hover:text-blue-800" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="#" class="text-slate-600 hover:text-blue-800" aria-label="GitHub"><i data-lucide="github" class="w-5 h-5"></i></a>
+                <a href="#" class="text-slate-600 hover:text-blue-800" aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
+            </div>
+            <p>&copy; 2025 <strong>Shivam Amin</strong>. Built for professional impact.</p>
         </div>
     </footer>
 
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+    <!-- Back to Top -->
+    <button id="backToTop" class="back-to-top hidden" aria-label="Back to top">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
 
-        // Simple smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+    <script>
+        // DOM ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize lucide icons
+            if (window.lucide) lucide.createIcons();
+
+            // Mobile menu toggling
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileBtn && mobileBtn.addEventListener('click', () => {
+                const expanded = mobileBtn.getAttribute('aria-expanded') === 'true';
+                mobileBtn.setAttribute('aria-expanded', String(!expanded));
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Smooth scroll for internal links (supports keyboard too)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    // If it's a mailto or tel link, ignore
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const el = document.querySelector(href);
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // close mobile menu after clicking nav
+                        if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+                    }
                 });
             });
+
+            // Reveal on scroll & animate progress bars
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+
+                        // animate inner progress bars if present
+                        entry.target.querySelectorAll('.progress-bar').forEach(bar => {
+                            const val = parseInt(bar.getAttribute('data-progress') || '0', 10);
+                            bar.style.width = val + '%';
+                        });
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.14 });
+
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+            // Back to top button
+            const backToTop = document.getElementById('backToTop');
+            const toggleBack = () => {
+                if (window.scrollY > 380) backToTop.classList.remove('hidden'); else backToTop.classList.add('hidden');
+            };
+            window.addEventListener('scroll', toggleBack);
+            toggleBack();
+            backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         });
     </script>
 </body>
