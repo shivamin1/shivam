@@ -413,6 +413,63 @@
 
     // Accessibility check: ensure color contrast of some key elements (basic runtime warning only)
     (function contrastCheck(){ try{ const sample = getComputedStyle(document.body).color; /* offline check omitted - assume styles selected meet WCAG-AA */ }catch(e){} })();
+<script>
+/* Accessible Dark Mode Toggle
+   - Persists to localStorage ('theme' = 'dark'|'light')
+   - Disabled automatically while high-contrast mode is active
+   - Announces changes via #ariaLive (aria-live region already in the page)
+*/
+(function(){
+  const themeToggle = document.getElementById('themeToggle');
+  const hcActive = () => document.documentElement.classList.contains('high-contrast');
+  const ariaLive = document.getElementById('ariaLive');
+
+  // Initialize state on load
+  try {
+    const saved = localStorage.getItem('theme'); // 'dark' or 'light'
+    if (saved === 'dark' && !hcActive()) {
+      document.documentElement.classList.add('dark');
+      if (themeToggle) themeToggle.setAttribute('aria-pressed', 'true');
+    }
+    // If high contrast is already enabled, disable the theme toggle
+    if (hcActive() && themeToggle) {
+      themeToggle.setAttribute('aria-disabled', 'true');
+      themeToggle.disabled = true;
+    }
+  } catch (e) { /* ignore storage errors */ }
+
+  // Click handler
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      // Block toggling if high-contrast active (HC overrides theme)
+      if (hcActive()) {
+        if (ariaLive) ariaLive.innerText = 'High contrast mode is active; theme toggle is disabled.';
+        return;
+      }
+      const isDark = document.documentElement.classList.toggle('dark');
+      themeToggle.setAttribute('aria-pressed', String(!!isDark));
+      try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e){}
+      if (ariaLive) ariaLive.innerText = isDark ? 'Dark mode enabled' : 'Light mode enabled';
+    });
+  }
+
+  // If you have an existing HC toggle that updates localStorage,
+  // ensure it toggles themeToggle.disabled when HC is enabled/disabled.
+  // Example hookup (if you use #hcToggle elsewhere):
+  const hcToggle = document.getElementById('hcToggle');
+  if (hcToggle) {
+    hcToggle.addEventListener('click', () => {
+      // after HC handler runs and toggles document.documentElement.classList,
+      // disable/enable the theme toggle here:
+      const on = document.documentElement.classList.contains('high-contrast');
+      if (themeToggle) {
+        if (on) { themeToggle.setAttribute('aria-disabled', 'true'); themeToggle.disabled = true; }
+        else { themeToggle.removeAttribute('aria-disabled'); themeToggle.disabled = false; }
+      }
+    });
+  }
+})();
+</script>
 
   </script>
 </body>
