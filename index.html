@@ -1,162 +1,416 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shivam Amin Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shivam Amin — IT Support & Data Quality Portfolio</title>
+
+  <!-- Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
-  <script src="https://unpkg.com/lucide-react/dist/umd/lucide-react.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
   <style>
     :root{
-      --accent:#0d9488;
-      --brand:#0f172a;
+      --accent:#0d9488; /* teal */
+      --brand:#0f172a;  /* dark slate */
       --bg:#ffffff;
       --card:#f8fafc;
-      --muted:#475569;
-      --btn-text:#ffffff;
+      --muted:#4b5563;
+      --hc-bg:#000000; /* high contrast background */
+      --hc-surface:#111111;
+      --hc-text:#ffffff;
+      --hc-accent:#ffd60a; /* high contrast accent (yellow) */
+      --hc-accent-text:#000000; /* text color when accent used */
     }
-    html.dark{
-      --bg:#071428;
-      --card:#071428;
-      --brand:#e6eef8;
-      --muted:#94a3b8;
-      --accent:#0ea5a4;
-      --btn-text:#ffffff;
+
+    /* High-contrast enforced palette */
+    :root.high-contrast{
+      --bg:var(--hc-bg);
+      --card:var(--hc-surface);
+      --brand:var(--hc-text);
+      --muted: #cbd5e1;
+      --accent: var(--hc-accent);
+      --accent-text: var(--hc-accent-text);
     }
-    html.high-contrast{
-      --bg:#000000;
-      --card:#111111;
-      --brand:#ffffff;
-      --muted:#cbd5e1;
-      --accent:#ffd60a;
-      --btn-text:#000000;
-    }
-    body{background:var(--bg);color:var(--brand);}
-    .btn-primary{background:var(--accent);color:var(--btn-text);padding:0.5rem 1rem;border-radius:0.5rem;}
-    .btn-ghost{padding:0.5rem 1rem;border-radius:0.5rem;}
-    .badge{display:inline-block;padding:.36rem .75rem;border-radius:999px;font-weight:700;background:var(--accent);color:var(--btn-text);}  
+
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial; background:var(--bg); color:var(--brand); -webkit-font-smoothing:antialiased}
+
+    /* Accessibility helpers */
+    a:focus, button:focus, [role="button"]:focus { outline: 3px solid rgba(255,215,10,0.18); outline-offset: 3px; }
+    :focus-visible { outline: 3px solid rgba(255,215,10,0.22); outline-offset: 3px; }
+
+    .skip-link{position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden}
+    .skip-link:focus{left: 1rem; top: 1rem; width: auto; height: auto; padding: .5rem .75rem; background: var(--card); color: var(--brand); border-radius: .375rem; box-shadow: 0 6px 18px rgba(2,6,23,0.08)}
+
+    /* Card */
+    .card{background:var(--card); border:2px solid rgba(2,6,23,0.04); border-radius:1rem; box-shadow:0 10px 30px rgba(2,6,23,0.06); transition:transform .28s, box-shadow .28s, border-color .2s}
+    :root.high-contrast .card{border-color:rgba(255,255,255,0.06)}
+    .card:hover{transform:translateY(-8px)}
+
+    /* Buttons */
+    .btn-primary{background:linear-gradient(90deg,#1e3a8a,var(--accent)); color:var(--card); padding:.7rem 1.1rem; border-radius:.7rem; font-weight:700; display:inline-flex; gap:.6rem; align-items:center}
+    :root.high-contrast .btn-primary{background:var(--accent); color:var(--hc-accent-text)}
+    .btn-ghost{background:transparent; color:var(--brand); padding:.6rem .9rem; border-radius:.6rem; border:2px solid rgba(2,6,23,0.04)}
+    :root.high-contrast .btn-ghost{border-color:rgba(255,255,255,0.06); color:var(--brand)}
+
+    .badge{display:inline-block;padding:.36rem .9rem;border-radius:999px;font-weight:700;background:var(--brand);color:var(--card);transition:transform .16s}
+    :root.high-contrast .badge{background:var(--hc-accent); color:var(--hc-accent-text)}
+
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1)}
+    .reveal.show{opacity:1; transform:none}
+
+    /* Profile image */
+    .profile-frame{width:64px;height:64px;border-radius:999px;overflow:hidden;border:3px solid var(--brand);display:inline-block}
+    .profile-img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5)}
+    .modal .panel{width:90%;max-width:720px;background:var(--card);color:var(--brand);border-radius:.75rem;padding:1rem}
+    :root.high-contrast .modal .panel{background:var(--hc-surface)}
+
+    /* Report table visuals */
+    .report-pass{color:green;font-weight:700}
+    .report-fail{color:crimson;font-weight:700}
+
+    @media (max-width:640px){h1{font-size:2rem}}
   </style>
 </head>
-<body class="font-sans">
-  <header class="flex justify-between items-center p-4 shadow-md">
-    <h1 class="text-xl font-bold">Shivam Amin</h1>
-    <nav>
-      <ul class="hidden md:flex gap-6">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#experience" class="nav-link">Experience</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
+
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div id="ariaLive" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+  <header class="sticky top-0 z-50 bg-opacity-95 backdrop-blur-md border-b border-slate-100">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="navigation" aria-label="Main navigation">
+      <div class="flex items-center justify-between h-20">
+        <a href="#home" class="flex items-center gap-3" id="brand">
+          <span class="profile-frame" role="button" aria-label="Upload profile photo of Shivam Amin" tabindex="0">
+            <img id="profileImage" src="https://placehold.co/56x56/f8fafc/1e293b?text=SA" alt="Profile photo placeholder: click to upload your photo" class="profile-img" />
+          </span>
+          <div class="hidden sm:block">
+            <div class="text-sm font-semibold text-slate-900">Shivam Amin</div>
+            <div class="text-xs text-slate-500">IT Support • Data Quality</div>
+          </div>
+        </a>
+
+        <div class="hidden md:flex items-center gap-4" role="menubar">
+          <a href="#about" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-800" role="menuitem">About</a>
+          <a href="#experience" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-800" role="menuitem">Experience</a>
+          <a href="#skills" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-800" role="menuitem">Skills</a>
+          <a href="#contact" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-800" role="menuitem">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button id="themeToggle" class="btn-ghost hidden sm:inline-flex items-center gap-2" aria-pressed="false" title="Toggle dark mode">
+            <i data-lucide="moon" class="w-4 h-4" aria-hidden="true"></i>
+            <span class="text-sm">Dark</span>
+          </button>
+
+          <button id="hcToggle" class="btn-ghost inline-flex items-center gap-2" aria-pressed="false" title="Toggle high contrast mode">
+            <i data-lucide="sun" class="w-4 h-4" aria-hidden="true"></i>
+            <span class="text-sm">High contrast</span>
+          </button>
+
+          <button id="mobileBtn" class="md:hidden p-2 rounded-md hover:bg-slate-100 focus:outline-none" aria-expanded="false" aria-controls="mobileMenu">
+            <i data-lucide="menu" class="w-6 h-6" aria-hidden="true"></i>
+            <span class="sr-only">Open navigation menu</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden hidden py-2" role="menu" aria-label="Mobile navigation">
+        <a href="#about" class="block px-3 py-2" role="menuitem">About</a>
+        <a href="#experience" class="block px-3 py-2" role="menuitem">Experience</a>
+        <a href="#skills" class="block px-3 py-2" role="menuitem">Skills</a>
+        <a href="#contact" class="block px-3 py-2" role="menuitem">Contact</a>
+      </div>
     </nav>
-    <div class="flex items-center gap-2">
-      <!-- Dark-mode toggle -->
-      <button id="themeToggle" class="btn-ghost inline-flex items-center gap-2" aria-pressed="false" aria-label="Toggle dark mode">
-        <i data-lucide="moon" class="w-4 h-4" aria-hidden="true"></i>
-        <span class="text-sm">Dark</span>
-      </button>
-      <!-- High contrast toggle -->
-      <button id="hcToggle" class="btn-ghost inline-flex items-center gap-2" aria-pressed="false" aria-label="Toggle high contrast mode">
-        <i data-lucide="sun" class="w-4 h-4" aria-hidden="true"></i>
-        <span class="text-sm">High contrast</span>
-      </button>
-      <!-- Contrast check -->
-      <button id="contrastCheckBtn" class="btn-ghost inline-flex items-center gap-2" aria-label="Run contrast check">
-        <i data-lucide="eye" class="w-4 h-4" aria-hidden></i>
-        <span class="text-sm">Contrast</span>
-      </button>
-      <!-- Mobile menu button -->
-      <button id="mobileBtn" class="md:hidden p-2 rounded-md hover:bg-slate-100 focus:outline-none" aria-expanded="false" aria-controls="mobileMenu">
-        <i data-lucide="menu" class="w-6 h-6" aria-hidden></i>
-        <span class="sr-only">Open navigation menu</span>
-      </button>
-    </div>
   </header>
 
-  <main class="p-8">
-    <section id="about" class="mb-16">
-      <h2 class="text-2xl font-bold mb-4">About Me</h2>
-      <p>Hello, I’m Shivam Amin. Welcome to my portfolio website.</p>
+  <main id="main" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" role="main">
+    <input type="file" id="photoInput" accept="image/*" class="sr-only" aria-hidden="true" />
+
+    <section id="home" class="relative overflow-hidden py-20" aria-labelledby="heroHeading">
+      <div class="max-w-4xl mx-auto text-center reveal tilt" data-tilt>
+        <h1 id="heroHeading" class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4">Shivam Amin</h1>
+        <p class="text-lg text-slate-700 mb-6 max-w-3xl mx-auto">I help healthcare teams stay online and keep their data reliable — fast troubleshooting, strict privacy, and measurable improvements.</p>
+
+        <div class="flex items-center justify-center gap-4">
+          <a href="#experience" class="btn-primary inline-flex items-center" aria-label="View Expertise"><i data-lucide="shield-check" class="w-4 h-4" aria-hidden></i><span> View Expertise</span></a>
+          <button id="generateReport" class="btn-ghost inline-flex items-center" title="Generate accessibility report"><i data-lucide="file-text" class="w-4 h-4" aria-hidden></i><span> Accessibility report</span></button>
+        </div>
+
+      </div>
     </section>
 
-    <section id="experience" class="mb-16">
-      <h2 class="text-2xl font-bold mb-4">Experience</h2>
-      <p>Details about professional experience go here.</p>
+    <hr class="my-10 border-slate-200">
+
+    <!-- About -->
+    <section id="about" class="py-8" aria-labelledby="aboutHeading">
+      <h2 id="aboutHeading" class="text-2xl font-bold text-center mb-6 reveal">About My Approach</h2>
+      <div class="max-w-3xl mx-auto text-center text-base text-slate-700 reveal">
+        <p class="mb-3">I combine frontline troubleshooting with rigorous data quality processes. I focus on fixing the root cause so issues stay fixed — not just patched.</p>
+        <p>Experienced in high-compliance environments and practical user communication: clear, calm, and documented.</p>
+      </div>
     </section>
 
-    <section id="skills" class="mb-16">
-      <h2 class="text-2xl font-bold mb-4">Skills</h2>
-      <span class="badge">JavaScript</span>
-      <span class="badge">HTML</span>
-      <span class="badge">CSS</span>
+    <hr class="my-10 border-slate-200">
+
+    <!-- Experience -->
+    <section id="experience" class="py-8" aria-labelledby="expHeading">
+      <h2 id="expHeading" class="text-2xl font-bold text-center mb-6 reveal">Professional Experience</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <article class="card p-6 reveal" tabindex="0" aria-labelledby="exp1">
+          <h3 id="exp1" class="text-xl font-semibold text-blue-800">Customer Service Representative - Registries</h3>
+          <p class="text-sm text-slate-500">eHealth Saskatchewan • Feb 2025 - Present</p>
+          <ul class="list-disc mt-4 ml-5 text-slate-700 space-y-2">
+            <li>Tier 1 technical support for healthcare professionals, handling access & configuration issues.</li>
+            <li>Accurate ticketing, priority triage and escalation to maintain SLA compliance.</li>
+            <li>User education and strict adherence to data privacy processes.</li>
+          </ul>
+        </article>
+
+        <article class="card p-6 reveal" tabindex="0" aria-labelledby="exp2">
+          <h3 id="exp2" class="text-xl font-semibold text-blue-800">Data Quality Administrator - Registries</h3>
+          <p class="text-sm text-slate-500">eHealth Saskatchewan • Apr 2025 - Sep 2025</p>
+          <ul class="list-disc mt-4 ml-5 text-slate-700 space-y-2">
+            <li>Performed data quality audits and resolved discrepancies to improve registry reliability.</li>
+            <li>Built data cleansing procedures and validation checks in collaboration with IT.</li>
+            <li>Improved reporting fidelity and reduced repeat data issues.</li>
+          </ul>
+        </article>
+
+        <article class="card p-6 md:col-span-2 reveal" tabindex="0" aria-labelledby="exp3">
+          <h3 id="exp3" class="text-xl font-semibold text-blue-800">Supplier Success Professional</h3>
+          <p class="text-sm text-slate-500">Avetta LLC • Oct 2021 – Apr 2023</p>
+          <ul class="list-disc mt-4 ml-5 text-slate-700 space-y-2">
+            <li>Front-line support for a cloud compliance platform using Salesforce Service Cloud.</li>
+            <li>Managed high-volume cases while meeting SLAs and QA expectations.</li>
+            <li>Contributed to knowledge base content and product QA feedback loops.</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
-    <section id="contact" class="mb-16">
-      <h2 class="text-2xl font-bold mb-4">Contact</h2>
-      <p>Email: example@example.com</p>
+    <hr class="my-10 border-slate-200">
+
+    <!-- Skills with animated bars -->
+    <section id="skills" class="py-8" aria-labelledby="skillsHeading">
+      <h2 id="skillsHeading" class="text-2xl font-bold text-center mb-6 reveal">Skills & Competencies</h2>
+      <div class="max-w-4xl mx-auto space-y-6">
+
+        <div class="card p-6 reveal">
+          <h4 class="font-semibold text-lg mb-3 flex items-center gap-2"><i data-lucide="tool" class="w-5 h-5 text-teal-600" aria-hidden></i> Support Systems & Tools</h4>
+          <div class="flex flex-wrap gap-3 mb-4">
+            <span class="badge">Salesforce</span>
+            <span class="badge">Jira / ServiceNow</span>
+            <span class="badge">PHRS / Vital Statistics</span>
+            <span class="badge">Remote Desktop</span>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>First contact resolution</span><strong class="text-slate-800">85%</strong></div>
+              <div class="progress-track" aria-hidden><div class="progress-fill" data-value="85"></div></div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Ticket triage</span><strong class="text-slate-800">78%</strong></div>
+              <div class="progress-track" aria-hidden><div class="progress-fill" data-value="78"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-6 reveal">
+          <h4 class="font-semibold text-lg mb-3 flex items-center gap-2"><i data-lucide="database" class="w-5 h-5 text-teal-600" aria-hidden></i> Data Integrity & Compliance</h4>
+          <div class="flex flex-wrap gap-3 mb-4">
+            <span class="badge">Data Audits</span>
+            <span class="badge">Cleansing</span>
+            <span class="badge">Privacy Protocols</span>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Audit accuracy</span><strong class="text-slate-800">88%</strong></div>
+              <div class="progress-track" aria-hidden><div class="progress-fill" data-value="88"></div></div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-sm text-slate-600 mb-1"><span>RCA effectiveness</span><strong class="text-slate-800">82%</strong></div>
+              <div class="progress-track" aria-hidden><div class="progress-fill" data-value="82"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-2 reveal">
+          <p class="text-sm text-slate-600">Education: <strong class="text-blue-800">Diploma in Computer Science</strong> — University of Regina</p>
+        </div>
+      </div>
     </section>
+
+    <hr class="my-10 border-slate-200">
+
+    <!-- Contact -->
+    <section id="contact" class="py-8 text-center" aria-labelledby="contactHeading">
+      <h2 id="contactHeading" class="text-2xl font-bold mb-4 reveal">Let's Connect</h2>
+      <p class="text-sm text-slate-700 mb-6 reveal">Interested in reliable support or improving data quality? Reach out and let's talk about a 30-day plan.</p>
+
+      <div class="flex items-center justify-center gap-3 reveal">
+        <a href="mailto:shivam2001amin@gmail.com" class="btn-primary"><i data-lucide="mail" class="w-4 h-4" aria-hidden></i><span>Email</span></a>
+        <a href="tel:+16395600583" class="btn-ghost"><i data-lucide="phone" class="w-4 h-4" aria-hidden></i><span>Call</span></a>
+      </div>
+
+    </section>
+
   </main>
 
-  <div id="reportModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white p-6 rounded-lg w-3/4 max-w-xl" role="dialog" aria-modal="true">
-      <h3 class="text-xl font-bold mb-4">Accessibility Report</h3>
-      <div id="reportContent"></div>
-      <button onclick="document.getElementById('reportModal').classList.add('hidden')" class="btn-primary mt-4">Close</button>
+  <footer class="bg-slate-50 py-8 mt-12" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-600">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5" aria-hidden></i></a>
+        <a href="#" aria-label="GitHub"><i data-lucide="github" class="w-5 h-5" aria-hidden></i></a>
+        <a href="#" aria-label="Email"><i data-lucide="mail" class="w-5 h-5" aria-hidden></i></a>
+      </div>
+      <p>&copy; 2025 <strong>Shivam Amin</strong></p>
+    </div>
+  </footer>
+
+  <!-- Accessibility Report Modal -->
+  <div id="reportModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
+    <div class="panel">
+      <div class="flex items-start justify-between">
+        <h3 id="reportTitle" class="text-lg font-bold">Accessibility Report</h3>
+        <div class="flex gap-2">
+          <button id="printReport" class="btn-ghost" aria-label="Print report"><i data-lucide="printer" class="w-4 h-4"></i></button>
+          <button id="closeReport" class="btn-ghost" aria-label="Close report"><i data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+      </div>
+      <div id="reportContent" class="mt-4 text-sm max-h-[60vh] overflow-auto" tabindex="0"></div>
     </div>
   </div>
 
   <script>
-    // theme toggle
-    const themeToggle = document.getElementById('themeToggle');
-    const hcToggle = document.getElementById('hcToggle');
+    if(window.lucide) lucide.createIcons();
+    const $ = (s, ctx=document)=> ctx.querySelector(s);
+    const $$ = (s, ctx=document)=> Array.from(ctx.querySelectorAll(s));
+    const ariaLive = $('#ariaLive');
 
-    themeToggle.addEventListener('click', ()=>{
-      document.documentElement.classList.toggle('dark');
-      themeToggle.setAttribute('aria-pressed', document.documentElement.classList.contains('dark'));
+    // High-contrast toggle
+    const hcToggle = $('#hcToggle');
+    const root = document.documentElement;
+    const currentHC = localStorage.getItem('highContrast');
+    if(currentHC === 'true') root.classList.add('high-contrast');
+    hcToggle && hcToggle.addEventListener('click', ()=>{
+      const isOn = root.classList.toggle('high-contrast');
+      hcToggle.setAttribute('aria-pressed', String(isOn));
+      localStorage.setItem('highContrast', isOn ? 'true' : 'false');
+      ariaLive.innerText = isOn ? 'High contrast mode enabled' : 'High contrast mode disabled';
     });
-    hcToggle.addEventListener('click', ()=>{
-      document.documentElement.classList.toggle('high-contrast');
-      hcToggle.setAttribute('aria-pressed', document.documentElement.classList.contains('high-contrast'));
-    });
 
-    // contrast check function
-    (function(){
-      function parseRGB(rgb){ if(!rgb) return null; const m = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/i); if(!m) return null; return {r:parseInt(m[1],10), g:parseInt(m[2],10), b:parseInt(m[3],10), a: m[4] ? parseFloat(m[4]) : 1}; }
-      function sRGBtoLin(c){ c = c/255; return c<=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
-      function luminance(rgb){ return 0.2126*sRGBtoLin(rgb.r) + 0.7152*sRGBtoLin(rgb.g) + 0.0722*sRGBtoLin(rgb.b); }
-      function contrastRatio(rgb1, rgb2){ const L1 = luminance(rgb1); const L2 = luminance(rgb2); const lighter = Math.max(L1,L2); const darker = Math.min(L1,L2); return (lighter + 0.05) / (darker + 0.05); }
-      function effectiveBackgroundColor(el){ let node = el; while(node && node !== document){ const bg = getComputedStyle(node).backgroundColor; const rgb = parseRGB(bg); if(rgb && rgb.a > 0) return rgb; node = node.parentElement; } return parseRGB(getComputedStyle(document.body).backgroundColor) || {r:255,g:255,b:255,a:1}; }
-      function getTextColor(el){ const color = getComputedStyle(el).color; return parseRGB(color) || {r:0,g:0,b:0,a:1}; }
-      function isLargeText(el){ const size = parseFloat(getComputedStyle(el).fontSize); const weight = parseInt(getComputedStyle(el).fontWeight) || 400; return (size >= 18) || (size >= 14 && weight >= 700); }
-      function checkPair(el){ if(!el) return null; const fg = getTextColor(el); const bg = effectiveBackgroundColor(el); const ratio = Math.round(contrastRatio(fg,bg)*100)/100; const threshold = isLargeText(el) ? 3.0 : 4.5; const pass = ratio >= threshold; return {ratio, threshold, pass}; }
+    // Accessibility: mobile menu
+    const mobileBtn = $('#mobileBtn');
+    const mobileMenu = $('#mobileMenu');
+    mobileBtn && mobileBtn.addEventListener('click', ()=>{ const exp = mobileBtn.getAttribute('aria-expanded') === 'true'; mobileBtn.setAttribute('aria-expanded', String(!exp)); mobileMenu.classList.toggle('hidden'); if(!mobileMenu.classList.contains('hidden')) mobileMenu.querySelector('[role="menuitem"]').focus(); });
 
-      function runContrastCheck(){
-        const items = [
-          {sel:'body',name:'Body text'},
-          {sel:'#about h2',name:'About heading'},
-          {sel:'.btn-primary',name:'Primary button'},
-          {sel:'.btn-ghost',name:'Ghost button'},
-          {sel:'.badge',name:'Badge'},
-          {sel:'header nav a',name:'Navigation link'}
-        ];
-        const report = [];
-        items.forEach(i=>{
-          const el = document.querySelector(i.sel);
-          if(!el) return;
-          const res = checkPair(el);
-          report.push({element:i.name, ratio: res ? res.ratio : 'n/a', required: res ? res.threshold : 'n/a', pass: res ? res.pass : false});
-        });
-        const html = ['<table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Element</th><th style="padding:8px;border-bottom:1px solid #ddd">Contrast</th><th style="padding:8px;border-bottom:1px solid #ddd">Required</th><th style="padding:8px;border-bottom:1px solid #ddd">Result</th></tr></thead><tbody>'];
-        report.forEach(r=>{
-          html.push('<tr><td style="padding:8px;border-bottom:1px solid #eee">' + r.element + '</td><td style="padding:8px;border-bottom:1px solid #eee">' + r.ratio + ':1</td><td style="padding:8px;border-bottom:1px solid #eee">' + r.required + ':1</td><td style="padding:8px;border-bottom:1px solid #eee">' + (r.pass ? '<span style="color:green;font-weight:700">PASS</span>' : '<span style="color:crimson;font-weight:700">FAIL</span>') + '</td></tr>');
-        });
-        html.push('</tbody></table>');
-        const panel = document.getElementById('reportContent');
-        if(panel){ panel.innerHTML = html.join(''); document.getElementById('reportModal').classList.remove('hidden'); panel.focus(); }
+    // Generate accessibility report
+    const reportModal = $('#reportModal');
+    const reportContent = $('#reportContent');
+    const generateBtn = $('#generateReport');
+    const closeReport = $('#closeReport');
+    const printReport = $('#printReport');
+
+    function parseRGB(rgb){
+      if(!rgb) return null;
+      const m = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/i);
+      if(!m) return null;
+      return {r:parseInt(m[1],10), g:parseInt(m[2],10), b:parseInt(m[3],10), a: m[4] ? parseFloat(m[4]) : 1};
+    }
+    function sRGBtoLin(c){ c = c/255; return c<=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
+    function luminance(rgb){ return 0.2126*sRGBtoLin(rgb.r) + 0.7152*sRGBtoLin(rgb.g) + 0.0722*sRGBtoLin(rgb.b); }
+    function contrastRatio(rgb1, rgb2){ const L1 = luminance(rgb1); const L2 = luminance(rgb2); const lighter = Math.max(L1,L2); const darker = Math.min(L1,L2); return (lighter + 0.05) / (darker + 0.05); }
+
+    function effectiveBackgroundColor(el){
+      let node = el;
+      while(node && node !== document){
+        const bg = getComputedStyle(node).backgroundColor;
+        const rgb = parseRGB(bg);
+        if(rgb && rgb.a > 0 && !(rgb.r===0 && rgb.g===0 && rgb.b===0 && rgb.a===0)) return rgb;
+        node = node.parentElement;
       }
-      const btn = document.getElementById('contrastCheckBtn');
-      if(btn) btn.addEventListener('click', runContrastCheck);
-    })();
+      return parseRGB(getComputedStyle(document.body).backgroundColor) || {r:255,g:255,b:255,a:1};
+    }
+
+    function getTextColor(el){ const color = getComputedStyle(el).color; return parseRGB(color) || {r:0,g:0,b:0,a:1}; }
+    function isLargeText(el){ const size = parseFloat(getComputedStyle(el).fontSize); const weight = parseInt(getComputedStyle(el).fontWeight) || 400; return (size >= 18) || (size >= 14 && weight >= 700); }
+
+    function checkPair(el,desc){
+      const fg = getTextColor(el); const bg = effectiveBackgroundColor(el);
+      const ratio = Math.round(contrastRatio(fg,bg)*100)/100;
+      const threshold = isLargeText(el) ? 3.0 : 4.5;
+      const pass = ratio >= threshold;
+      return {desc, ratio, threshold, pass, fg, bg};
+    }
+
+    function elementSummary(selector, label){ const el = document.querySelector(selector); if(!el) return null; return checkPair(el, label || selector); }
+
+    function generateReport(){
+      const checks = [];
+      const targets = [
+        {sel:'body',label:'Body text'},
+        {sel:'h1',label:'Main heading'},
+        {sel:'.btn-primary',label:'Primary button (text on button background)'},
+        {sel:'.btn-ghost',label:'Ghost button (text on surface)'},
+        {sel:'.badge',label:'Skill badge'},
+        {sel:'.nav-link',label:'Navigation link'},
+        {sel:'#heroHeading',label:'Hero heading'},
+      ];
+      targets.forEach(t=>{ const res = elementSummary(t.sel,t.label); if(res) checks.push(res); });
+
+      let html = '<table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Element</th><th style="padding:8px;border-bottom:1px solid #ddd">Contrast</th><th style="padding:8px;border-bottom:1px solid #ddd">Required</th><th style="padding:8px;border-bottom:1px solid #ddd">Result</th></tr></thead><tbody>';
+      checks.forEach(c=>{
+        html += `<tr><td style="padding:8px;border-bottom:1px solid #eee">${c.desc}</td><td style="padding:8px;border-bottom:1px solid #eee">${c.ratio}:1</td><td style="padding:8px;border-bottom:1px solid #eee">${c.threshold}:1</td><td style="padding:8px;border-bottom:1px solid #eee">${c.pass? '<span class="report-pass">PASS</span>':'<span class="report-fail">FAIL</span>'}</td></tr>`;
+      });
+      html += '</tbody></table>';
+
+      const failCount = checks.filter(c=>!c.pass).length;
+      html = `<p><strong>Summary:</strong> ${checks.length - failCount} passed, ${failCount} failed.</p>` + html;
+      reportContent.innerHTML = html;
+      reportModal.classList.remove('hidden');
+      reportModal.querySelector('.panel').focus();
+      ariaLive.innerText = `Accessibility report generated. ${checks.length - failCount} passed and ${failCount} failed.`;
+    }
+
+    generateBtn && generateBtn.addEventListener('click', generateReport);
+    closeReport && closeReport.addEventListener('click', ()=>{ reportModal.classList.add('hidden'); ariaLive.innerText = 'Accessibility report closed.'; });
+    printReport && printReport.addEventListener('click', ()=>{ window.print(); });
+
+    // Profile upload (light)
+    const profileFrame = document.querySelector('.profile-frame');
+    const profileImg = $('#profileImage');
+    const photoInput = $('#photoInput');
+    profileFrame && profileFrame.addEventListener('click', ()=> photoInput.click());
+    profileFrame && profileFrame.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); photoInput.click(); }});
+    photoInput && photoInput.addEventListener('change', (ev)=>{
+      const file = ev.target.files && ev.target.files[0]; if(!file) return; if(!file.type.startsWith('image/')){ ariaLive.innerText = 'Uploaded file is not an image.'; return; }
+      const reader = new FileReader(); reader.onload = function(evt){ profileImg.src = evt.target.result; profileImg.alt = file.name.replace(/[-_]+/g,' ').replace(/\.(jpg|jpeg|png|gif|webp)$/i,'') + ' — profile photo of Shivam Amin'; localStorage.setItem('profileImageData', profileImg.src); localStorage.setItem('profileImageAlt', profileImg.alt); ariaLive.innerText = 'Profile photo updated.'; }; reader.readAsDataURL(file);
+    });
+    document.addEventListener('DOMContentLoaded', ()=>{ try{ const stored = localStorage.getItem('profileImageData'); const alt = localStorage.getItem('profileImageAlt'); if(stored){ profileImg.src = stored; if(alt) profileImg.alt = alt; } }catch(e){} });
+
+    // Reveal + progress
+    const ro = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); ro.unobserve(e.target); }}); }, {threshold:0.12});
+    $$('.reveal').forEach(el=>ro.observe(el));
+    const pObs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.querySelectorAll('.progress-fill').forEach(b=>{ b.style.width = (b.getAttribute('data-value')||0) + '%'; }); pObs.unobserve(e.target); }}); }, {threshold:0.2});
+    $$('#skills .card').forEach(el=>pObs.observe(el));
+
+    // Recreate icons after dynamic changes
+    document.addEventListener('click', ()=> { if(window.lucide) lucide.createIcons(); });
   </script>
 </body>
 </html>
