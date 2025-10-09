@@ -69,14 +69,7 @@
     .profile-frame{width:64px;height:64px;border-radius:999px;overflow:hidden;border:3px solid var(--brand);display:inline-block}
     .profile-img{width:100%;height:100%;object-fit:cover;display:block}
 
-    /* Modal */
-    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5)}
-    .modal .panel{width:90%;max-width:720px;background:var(--card);color:var(--brand);border-radius:.75rem;padding:1rem}
-    :root.high-contrast .modal .panel{background:var(--hc-surface)}
-
-    /* Report table visuals */
-    .report-pass{color:green;font-weight:700}
-    .report-fail{color:crimson;font-weight:700}
+    /* Report table visuals (kept minimal in case of future use) */
 
     @media (max-width:640px){h1{font-size:2rem}}
   </style>
@@ -107,10 +100,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <button id="themeToggle" class="btn-ghost hidden sm:inline-flex items-center gap-2" aria-pressed="false" title="Toggle dark mode">
-            <i data-lucide="moon" class="w-4 h-4" aria-hidden="true"></i>
-            <span class="text-sm">Dark</span>
-          </button>
+          <!-- Dark mode toggle removed -->
 
           <button id="hcToggle" class="btn-ghost inline-flex items-center gap-2" aria-pressed="false" title="Toggle high contrast mode">
             <i data-lucide="sun" class="w-4 h-4" aria-hidden="true"></i>
@@ -143,7 +133,7 @@
 
         <div class="flex items-center justify-center gap-4">
           <a href="#experience" class="btn-primary inline-flex items-center" aria-label="View Expertise"><i data-lucide="shield-check" class="w-4 h-4" aria-hidden></i><span> View Expertise</span></a>
-          <button id="generateReport" class="btn-ghost inline-flex items-center" title="Generate accessibility report"><i data-lucide="file-text" class="w-4 h-4" aria-hidden></i><span> Accessibility report</span></button>
+          <!-- Accessibility report button removed -->
         </div>
 
       </div>
@@ -282,20 +272,6 @@
     </div>
   </footer>
 
-  <!-- Accessibility Report Modal -->
-  <div id="reportModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
-    <div class="panel">
-      <div class="flex items-start justify-between">
-        <h3 id="reportTitle" class="text-lg font-bold">Accessibility Report</h3>
-        <div class="flex gap-2">
-          <button id="printReport" class="btn-ghost" aria-label="Print report"><i data-lucide="printer" class="w-4 h-4"></i></button>
-          <button id="closeReport" class="btn-ghost" aria-label="Close report"><i data-lucide="x" class="w-4 h-4"></i></button>
-        </div>
-      </div>
-      <div id="reportContent" class="mt-4 text-sm max-h-[60vh] overflow-auto" tabindex="0"></div>
-    </div>
-  </div>
-
   <script>
     if(window.lucide) lucide.createIcons();
     const $ = (s, ctx=document)=> ctx.querySelector(s);
@@ -318,78 +294,6 @@
     const mobileBtn = $('#mobileBtn');
     const mobileMenu = $('#mobileMenu');
     mobileBtn && mobileBtn.addEventListener('click', ()=>{ const exp = mobileBtn.getAttribute('aria-expanded') === 'true'; mobileBtn.setAttribute('aria-expanded', String(!exp)); mobileMenu.classList.toggle('hidden'); if(!mobileMenu.classList.contains('hidden')) mobileMenu.querySelector('[role="menuitem"]').focus(); });
-
-    // Generate accessibility report
-    const reportModal = $('#reportModal');
-    const reportContent = $('#reportContent');
-    const generateBtn = $('#generateReport');
-    const closeReport = $('#closeReport');
-    const printReport = $('#printReport');
-
-    function parseRGB(rgb){
-      if(!rgb) return null;
-      const m = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/i);
-      if(!m) return null;
-      return {r:parseInt(m[1],10), g:parseInt(m[2],10), b:parseInt(m[3],10), a: m[4] ? parseFloat(m[4]) : 1};
-    }
-    function sRGBtoLin(c){ c = c/255; return c<=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
-    function luminance(rgb){ return 0.2126*sRGBtoLin(rgb.r) + 0.7152*sRGBtoLin(rgb.g) + 0.0722*sRGBtoLin(rgb.b); }
-    function contrastRatio(rgb1, rgb2){ const L1 = luminance(rgb1); const L2 = luminance(rgb2); const lighter = Math.max(L1,L2); const darker = Math.min(L1,L2); return (lighter + 0.05) / (darker + 0.05); }
-
-    function effectiveBackgroundColor(el){
-      let node = el;
-      while(node && node !== document){
-        const bg = getComputedStyle(node).backgroundColor;
-        const rgb = parseRGB(bg);
-        if(rgb && rgb.a > 0 && !(rgb.r===0 && rgb.g===0 && rgb.b===0 && rgb.a===0)) return rgb;
-        node = node.parentElement;
-      }
-      return parseRGB(getComputedStyle(document.body).backgroundColor) || {r:255,g:255,b:255,a:1};
-    }
-
-    function getTextColor(el){ const color = getComputedStyle(el).color; return parseRGB(color) || {r:0,g:0,b:0,a:1}; }
-    function isLargeText(el){ const size = parseFloat(getComputedStyle(el).fontSize); const weight = parseInt(getComputedStyle(el).fontWeight) || 400; return (size >= 18) || (size >= 14 && weight >= 700); }
-
-    function checkPair(el,desc){
-      const fg = getTextColor(el); const bg = effectiveBackgroundColor(el);
-      const ratio = Math.round(contrastRatio(fg,bg)*100)/100;
-      const threshold = isLargeText(el) ? 3.0 : 4.5;
-      const pass = ratio >= threshold;
-      return {desc, ratio, threshold, pass, fg, bg};
-    }
-
-    function elementSummary(selector, label){ const el = document.querySelector(selector); if(!el) return null; return checkPair(el, label || selector); }
-
-    function generateReport(){
-      const checks = [];
-      const targets = [
-        {sel:'body',label:'Body text'},
-        {sel:'h1',label:'Main heading'},
-        {sel:'.btn-primary',label:'Primary button (text on button background)'},
-        {sel:'.btn-ghost',label:'Ghost button (text on surface)'},
-        {sel:'.badge',label:'Skill badge'},
-        {sel:'.nav-link',label:'Navigation link'},
-        {sel:'#heroHeading',label:'Hero heading'},
-      ];
-      targets.forEach(t=>{ const res = elementSummary(t.sel,t.label); if(res) checks.push(res); });
-
-      let html = '<table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Element</th><th style="padding:8px;border-bottom:1px solid #ddd">Contrast</th><th style="padding:8px;border-bottom:1px solid #ddd">Required</th><th style="padding:8px;border-bottom:1px solid #ddd">Result</th></tr></thead><tbody>';
-      checks.forEach(c=>{
-        html += `<tr><td style="padding:8px;border-bottom:1px solid #eee">${c.desc}</td><td style="padding:8px;border-bottom:1px solid #eee">${c.ratio}:1</td><td style="padding:8px;border-bottom:1px solid #eee">${c.threshold}:1</td><td style="padding:8px;border-bottom:1px solid #eee">${c.pass? '<span class="report-pass">PASS</span>':'<span class="report-fail">FAIL</span>'}</td></tr>`;
-      });
-      html += '</tbody></table>';
-
-      const failCount = checks.filter(c=>!c.pass).length;
-      html = `<p><strong>Summary:</strong> ${checks.length - failCount} passed, ${failCount} failed.</p>` + html;
-      reportContent.innerHTML = html;
-      reportModal.classList.remove('hidden');
-      reportModal.querySelector('.panel').focus();
-      ariaLive.innerText = `Accessibility report generated. ${checks.length - failCount} passed and ${failCount} failed.`;
-    }
-
-    generateBtn && generateBtn.addEventListener('click', generateReport);
-    closeReport && closeReport.addEventListener('click', ()=>{ reportModal.classList.add('hidden'); ariaLive.innerText = 'Accessibility report closed.'; });
-    printReport && printReport.addEventListener('click', ()=>{ window.print(); });
 
     // Profile upload (light)
     const profileFrame = document.querySelector('.profile-frame');
